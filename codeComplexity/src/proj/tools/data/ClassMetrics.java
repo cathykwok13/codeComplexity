@@ -16,22 +16,4 @@ public class ClassMetrics {
 		this.complexityPerMethod = complexityPerMethod;
 		this.dependencyPerMethod = dependencyPerMethod;
 	}
-	
-//	public void setLinesOfCode(int linesOfCode){
-//		this.linesOfCode = linesOfCode;
-//	}
-//	
-//	public void setCommitId(String commitId){
-//		this.commitId = commitId;
-//	}
-//	
-//	public void setComplexityPerMethod(Map<String, Integer> complexityPerMethod){
-//		this.complexityPerMethod = complexityPerMethod;
-//	}
-//	
-//	public void setDependencyPerMethod(Map<String, Integer> dependencyPerMethod){
-//		this.dependencyPerMethod = dependencyPerMethod;
-//	}
-//	
-	
 }

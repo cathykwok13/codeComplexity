@@ -11,8 +11,6 @@ public class Analyzer {
 
 		String path = "/home/cathy/Documents/6th YEAR/CPSC410/GoldenApple/";
 		analyze(path);
-		// List<String> javaFiles = getJavaFiles(projectDirectory);
-		// showFiles(projectDirectory);
 	}
 
 	/**
@@ -26,25 +24,32 @@ public class Analyzer {
 		List<String> javaFilePaths = dirParser.getJavaFiles();
 		ClassMetrics[] projectMetrics = new ClassMetrics[javaFilePaths.size()];
 		ClassParser claParser = new ClassParser();
+		
 
 		// FOR EACH java file, create a classMetrics object
 
 		for (int i = 0; i < javaFilePaths.size(); i++) {
-			// values this code has to fill in for ClassMetrics
+			
+			// values required for ClassMetrics
 			int linesOfCode=0;
 			String commitId="";
 			Map<String, Integer> complexityPerMethod = null;
 			Map<String, Integer> dependencyPerMethod = null;
 
-			//TODO
 			//get all the methods for the class
 			claParser.setFilePath(javaFilePaths.get(i));
+			List<String> methodList = claParser.getMethodList();
+			
 			//TODO
 			// calculate the cyclomatic complexity for this class
 			
-
+			//TODO
+			// calculate the dependency
+			
+			//TODO fill in values of class metrics
 			projectMetrics[i] = new ClassMetrics(linesOfCode, commitId,
 					complexityPerMethod, dependencyPerMethod);
+			
 		}
 
 	}
