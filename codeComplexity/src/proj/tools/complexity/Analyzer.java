@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import proj.tools.data.ClassMetrics;
+import proj.tools.parser.ClassParser;
+import proj.tools.parser.DirectoryParser;
 
 public class Analyzer {
 
@@ -26,7 +28,7 @@ public class Analyzer {
 		ClassParser claParser = new ClassParser();
 		
 
-		// FOR EACH java file, create a classMetrics object
+		// create a classMetrics object for each class
 
 		for (int i = 0; i < javaFilePaths.size(); i++) {
 			

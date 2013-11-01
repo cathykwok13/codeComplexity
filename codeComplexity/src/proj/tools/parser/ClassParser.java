@@ -1,4 +1,4 @@
-package proj.tools.complexity;
+package proj.tools.parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,11 +13,11 @@ public class ClassParser {
 	public ClassParser() {
 	}
 
-	protected void setFilePath(String filePath) {
+	public void setFilePath(String filePath) {
 		this.fileToAnalyze = new File(filePath);
 	}
 
-	protected List<String> getMethodList() {
+	public List<String> getMethodList() {
 		List<String> code = new ArrayList<String>();
 		String nextWord = "";
 
@@ -66,7 +66,6 @@ public class ClassParser {
 					} else if (nextWord.contains("}") && nestedBracket == 0) {
 						isMethod = false;
 						code.add(method);
-						System.out.println(method);
 						usingTemp = false;
 						method = "";
 					}
