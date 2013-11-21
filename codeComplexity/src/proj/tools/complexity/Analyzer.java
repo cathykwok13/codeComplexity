@@ -12,7 +12,7 @@ public class Analyzer {
 
 	public static void main(String[] args) {
 
-		String path = "/home/cathy/Documents/6th YEAR/CPSC410/GoldenApple/";
+		String path = "/Users/Andrew/Repo-Team26";
 		analyze(path);
 	}
 
@@ -26,6 +26,7 @@ public class Analyzer {
 		// get all java files
 		DirectoryParser dirParser = new DirectoryParser(path);
 		List<String> javaFilePaths = dirParser.getJavaFiles();
+		List<String> javaClassList = dirParser.getClassList();
 		ClassMetrics[] projectMetrics = new ClassMetrics[javaFilePaths.size()];
 		ClassParser claParser = new ClassParser();
 
@@ -54,11 +55,10 @@ public class Analyzer {
 							.getCyclomaticCalc(methodList.get(j));
 
 					complexityPerMethod.put(methodList.get(j), complexity);
-
-					// int dependency =
-					// CouplingCalculator.getCouplingCalc(methodList.get(j));
-					// dependencyPerMethod.out(methodList.get(j),dependency);
-
+					
+					 int dependency =
+					 CouplingCalculator.getCouplingCalc(methodList.get(j), javaClassList);
+					 dependencyPerMethod.put(methodList.get(j),dependency);
 				}
 			}
 

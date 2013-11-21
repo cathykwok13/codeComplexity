@@ -14,14 +14,20 @@ public class DirectoryParser {
 
 	File[] projDirContents;
 	List<String> javaList = new ArrayList<String>();
+	List<String> classList = new ArrayList<String>();
 
 	public DirectoryParser(String path) {
 		projDirContents = new File(path).listFiles();
 	}
 
-	public List<String> getJavaFiles(){
+	public List<String> getJavaFiles() {
 		getJavaFiles(projDirContents);
 		return javaList;
+	}
+	
+	public List<String> getClassList() {
+		getJavaFiles(projDirContents);
+		return classList;
 	}
 	
 	private void getJavaFiles(File[] files) {
@@ -30,10 +36,11 @@ public class DirectoryParser {
 				getJavaFiles(file.listFiles()); // Calls same method again.
 			} else if (file.getName().contains("java")) {
 				javaList.add(file.getAbsolutePath());
+				String s = file.getName();
+				s = s.replace(".java", "");
+				classList.add(s);
 			}
 		}
 
 	}
-	
-	
 }
