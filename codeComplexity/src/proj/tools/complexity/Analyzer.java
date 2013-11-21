@@ -1,5 +1,6 @@
 package proj.tools.complexity;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ public class Analyzer {
 
 	/**
 	 * At the end of this method, there will be an array of ClassMetrics objects
+	 * 
 	 * @param path
 	 */
 	private static void analyze(String path) {
@@ -26,32 +28,44 @@ public class Analyzer {
 		List<String> javaFilePaths = dirParser.getJavaFiles();
 		ClassMetrics[] projectMetrics = new ClassMetrics[javaFilePaths.size()];
 		ClassParser claParser = new ClassParser();
-		
 
 		// create a classMetrics object for each class
 
 		for (int i = 0; i < javaFilePaths.size(); i++) {
-			
-			// values required for ClassMetrics
-			int linesOfCode=0;
-			String commitId="";
-			Map<String, Integer> complexityPerMethod = null;
-			Map<String, Integer> dependencyPerMethod = null;
 
-			//get all the methods for the class
+			// values required for ClassMetrics
+			int linesOfCode = 0;
+			String commitId = "";
+			Map<String, Integer> complexityPerMethod = new HashMap<String, Integer>();
+			Map<String, Integer> dependencyPerMethod = new HashMap<String, Integer>();
+
+			// get all the methods for the class
 			claParser.setFilePath(javaFilePaths.get(i));
 			List<String> methodList = claParser.getMethodList();
-			
-			//TODO
+
+			// TODO
 			// calculate the cyclomatic complexity for this class
-			
-			//TODO
-			// calculate the dependency
-			
-			//TODO fill in values of class metrics
+			for (int j = 0; j < methodList.size(); j++) {
+				// removes class constructors
+				if (methodList.get(j).length() > 0
+						&& (methodList.get(j).contains("void") || methodList
+								.get(j).contains("return"))) {
+					int complexity = CyclomaticCalculator
+							.getCyclomaticCalc(methodList.get(j));
+
+					complexityPerMethod.put(methodList.get(j), complexity);
+
+					// int dependency =
+					// CouplingCalculator.getCouplingCalc(methodList.get(j));
+					// dependencyPerMethod.out(methodList.get(j),dependency);
+
+				}
+			}
+
+			// TODO fill in values of class metrics
 			projectMetrics[i] = new ClassMetrics(linesOfCode, commitId,
 					complexityPerMethod, dependencyPerMethod);
-			
+
 		}
 
 	}
