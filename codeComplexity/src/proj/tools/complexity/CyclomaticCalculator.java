@@ -1,5 +1,8 @@
 package proj.tools.complexity;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * The purpose of this class is to calculate the 
  * code cyclomatic complexity of a method
@@ -24,20 +27,39 @@ public class CyclomaticCalculator {
 	
 	static int getCyclomaticCalc(String s){
 		
-		//case 1: void || 1 return
-		if(s.contains("return") ){
-			System.out.println("METHOD RETURN");
-			return 1;
-		}
-		else if(s.contains("void")){
-			System.out.println("METHOD VOID");
-			return 1;
-		}
-		
-		
-	System.out.println("WHAT IS THIS "+ s);
+		//calculate how many exit nodes
+		Pattern p = Pattern.compile("return");
+		Matcher matcher = p.matcher(s);
 
-		return 0;
+		int count = 0;
+		while(matcher.find())
+			count++;
+		
+		if(count>1){
+			//do the algo with >1 exit node
+			return 0;
+		}else{
+			return getDecisionPoint(s) + 1;
+		}
+		
+	}
+	
+	private static int getDecisionPoint(String s){
+		
+
+		Pattern ifP = Pattern.compile("if\\s?\\(");
+		Pattern caseP = Pattern.compile("case\\s{1}[A-Za-z]+\\s?:");
+		Matcher ifMatch = ifP.matcher(s);
+		Matcher caseMatch = caseP.matcher(s);
+
+		int count = 0;
+		while(ifMatch.find())
+			count++;
+		while(caseMatch.find())
+			count++;
+	
+		//System.out.println(count);		
+		return count;
 	}
 	
 
