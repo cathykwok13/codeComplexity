@@ -12,8 +12,17 @@ The two metrics measured are:
 
 1. Complexity - using a control flow chart model
            http://en.wikipedia.org/wiki/Cyclomatic_complexity 
+           McCabe Cyclomatic Complexity - http://www.chambers.com.au/glossary/mc_cabe_cyclomatic_complexity.php
+           Using this method:
+                      http://www.klocwork.com/products/documentation/current/McCabe_Cyclomatic_Complexity
+                      
+           Cyclomatic complexity may be extended to a program with multiple exit points; in this case it is equal to:
+
+                       π − s + 2,
+
+           where π is the number of decision points in the program, and s is the number of exit points.
            
-    M = E − N + 2P
+    
     
 2. DEPENDENCY /COUPLING
            http://en.wikipedia.org/wiki/Coupling_%28computer_programming%29
