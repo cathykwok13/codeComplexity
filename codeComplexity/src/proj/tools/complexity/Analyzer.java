@@ -23,13 +23,19 @@ public class Analyzer {
 	 */
 	private static void analyze(String path) {
 
+		File bugReport = new File("/Users/selenalee/Documents/Cpsc 410/Project/Bug Report.txt");
+		BugReportParser bugParser = new BugReportParser();
+		String[] commitId = bugParser.readCommitId(bugReport);
+		
 		// get all java files
+		
 		DirectoryParser dirParser = new DirectoryParser(path);
 		List<String> javaFilePaths = dirParser.getJavaFiles();
 		List<String> javaClassList = dirParser.getClassList();
 		ClassMetrics[] projectMetrics = new ClassMetrics[javaFilePaths.size()];
 		ClassParser claParser = new ClassParser();
-
+		
+		
 		// create a classMetrics object for each class
 
 		for (int i = 0; i < javaFilePaths.size(); i++) {
