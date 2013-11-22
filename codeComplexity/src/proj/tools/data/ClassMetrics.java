@@ -4,11 +4,11 @@ import java.util.Map;
 
 public class ClassMetrics {
 	
-	private int linesOfCode;
-	private String commitId;
+	int linesOfCode;
+	String commitId;
 	
-	private Map<String, Integer> complexityPerMethod;
-	private Map<String, Integer> dependencyPerMethod;
+	Map<String, Integer> complexityPerMethod;
+	Map<String, Integer> dependencyPerMethod;
 	
 	public ClassMetrics( int linesOfCode, String commitId,Map<String, Integer> complexityPerMethod,Map<String, Integer> dependencyPerMethod){
 		this.linesOfCode = linesOfCode;
@@ -16,4 +16,21 @@ public class ClassMetrics {
 		this.complexityPerMethod = complexityPerMethod;
 		this.dependencyPerMethod = dependencyPerMethod;
 	}
+	
+	public int getLinesOfCode(){
+		return linesOfCode;
+	}
+	
+	public String getCommitId(){
+		return commitId;
+	}
+	
+	public Map<String, Integer> getComplexityPerMethod(){
+		return complexityPerMethod;
+	}
+	
+	public Map<String, Integer> getDependencyPerMethod(){
+		return  dependencyPerMethod;
+	}
+	
 }
