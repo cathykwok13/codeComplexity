@@ -16,6 +16,23 @@ public class ClassParser {
 	public void setFilePath(String filePath) {
 		this.fileToAnalyze = new File(filePath);
 	}
+	
+	public int getLinesOfCode() {
+		int count = 0;
+		
+		Scanner fileScanner;
+		try {
+			fileScanner = new Scanner(fileToAnalyze);
+			while(fileScanner.hasNextLine()){
+				count++;
+				fileScanner.nextLine();
+			}
+			fileScanner.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 
 	public List<String> getMethodList() {
 		List<String> code = new ArrayList<String>();
@@ -71,6 +88,7 @@ public class ClassParser {
 					}
 				}
 			}
+			fileScanner.close();
 
 		} catch (FileNotFoundException e) {
 
