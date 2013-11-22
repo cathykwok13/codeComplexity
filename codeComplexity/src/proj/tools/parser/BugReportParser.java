@@ -6,13 +6,11 @@ import java.util.Scanner;
 
 public class BugReportParser {
 
-	private static String[] commitId;
-	private static String[] commitDate;
+	String[] commitId;
+	String[] commitDate;
 
-	public static void main(String[] args) throws FileNotFoundException {
-		File bugReport = new File("/Users/selenalee/Documents/Cpsc 410/Project/Bug Report.txt");
-		commitId = readCommitId(bugReport);
-		commitDate = readDate(bugReport, commitId);
+	public BugReportParser(){
+		//File bugReport = new File("/Users/selenalee/Documents/Cpsc 410/Project/Bug Report.txt");
 
 		//for(int n=0; n<commitId.length; n++) {
 			//System.out.println(commitId[n]);
