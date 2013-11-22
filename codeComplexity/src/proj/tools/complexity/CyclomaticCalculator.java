@@ -19,10 +19,14 @@ import java.util.regex.Pattern;
 public class CyclomaticCalculator {
 
 	static int getCyclomaticCalc(String s) {
-		return getDecisionPoint(s) - getExitPoints(s) + 2;
+		int exitPoints = getExitPoint(s);
+		if(exitPoints ==1)
+			return getDecisionPoint(s) +1;
+		return getDecisionPoint(s) - getExitPoint(s) + 2;
 	}
 
 	private static int getDecisionPoint(String s) {
+
 
 		Pattern ifP = Pattern.compile("if\\s?\\(");
 		Pattern caseP = Pattern.compile("case\\s{1}[A-Za-z]+\\s?:");
@@ -42,7 +46,7 @@ public class CyclomaticCalculator {
 		return count;
 	}
 
-	private static int getExitPoints(String s) {
+	private static int getExitPoint(String s) {
 		// calculate how many exit nodes
 		Pattern p = Pattern.compile("return");
 		Matcher matcher = p.matcher(s);

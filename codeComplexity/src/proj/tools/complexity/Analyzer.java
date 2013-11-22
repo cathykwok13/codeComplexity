@@ -1,6 +1,8 @@
 package proj.tools.complexity;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +20,7 @@ public class Analyzer {
 	}
 
 	/**
-	 * At the end of this method, there will be an array of ClassMetrics objects
+	 * At the end of this method, there will be an array of ClassMetrics objects per project
 	 * 
 	 * @param path
 	 */
@@ -34,6 +36,7 @@ public class Analyzer {
 		}
 
 		// FOR EACH PROJECt
+		List<List<ClassMetrics>> complexityForProject = new ArrayList<List<ClassMetrics>>();
 
 		for (int k = 0; k < commitIdPath.size(); k++) {
 			// get all java files
@@ -50,14 +53,15 @@ public class Analyzer {
 			for (int i = 0; i < javaFilePaths.size(); i++) {
 
 				// values required for ClassMetrics
-				int linesOfCode = 0;
-				String commitId = "";
+				
+				String commitId = commitIdPath.get(k);
 				Map<String, Integer> complexityPerMethod = new HashMap<String, Integer>();
 				Map<String, Integer> dependencyPerMethod = new HashMap<String, Integer>();
 
 				// get all the methods for the class
 				claParser.setFilePath(javaFilePaths.get(i));
 				List<String> methodList = claParser.getMethodList();
+				int linesOfCode = claParser.getLinesOfCode();
 
 				// TODO
 				// calculate the cyclomatic complexity for this class
@@ -79,7 +83,6 @@ public class Analyzer {
 					}
 				}
 
-				// TODO fill in values of class metrics
 				projectMetrics[i] = new ClassMetrics(linesOfCode, commitId,
 						complexityPerMethod, dependencyPerMethod);
 
@@ -95,7 +98,10 @@ public class Analyzer {
 
 			}
 
+			 complexityForProject.add(Arrays.asList(projectMetrics));
 		}
+		
+		System.out.println("Done");
 
 	}
 

@@ -34,7 +34,7 @@ public class DirectoryParser {
 			int index = getCommitIndex(commitId, projDirContents[i].getName());
 			if (projDirContents[i].isDirectory() && index >= 0 ) {
 				folderNamesInArray[index] = projDirContents[i].getPath();
-				System.out.println(projDirContents[i].getName());
+				//System.out.println(projDirContents[i].getName());
 			}
 		}
 		//folderNames = 
