@@ -12,7 +12,7 @@ public class Analyzer {
 
 	public static void main(String[] args) {
 
-		String path = "/Users/Andrew/Repo-Team26";
+		String path = "/Users/cathykwok/Documents/School/CPSC410/GoldenApple/";
 		analyze(path);
 	}
 
@@ -44,6 +44,7 @@ public class Analyzer {
 			// get all the methods for the class
 			claParser.setFilePath(javaFilePaths.get(i));
 			List<String> methodList = claParser.getMethodList();
+			
 
 			// TODO
 			// calculate the cyclomatic complexity for this class
@@ -55,11 +56,11 @@ public class Analyzer {
 					int complexity = CyclomaticCalculator
 							.getCyclomaticCalc(methodList.get(j));
 
-					complexityPerMethod.put(methodList.get(j), complexity);
+					complexityPerMethod.put(javaClassList.get(i)+j, complexity);
 					
 					 int dependency =
 					 CouplingCalculator.getCouplingCalc(methodList.get(j), javaClassList);
-					 dependencyPerMethod.put(methodList.get(j),dependency);
+					 dependencyPerMethod.put(javaClassList.get(i)+j,dependency);
 				}
 			}
 
@@ -68,8 +69,16 @@ public class Analyzer {
 			// TODO fill in values of class metrics
 			projectMetrics[i] = new ClassMetrics(linesOfCode, commitId,
 					complexityPerMethod, dependencyPerMethod);
+			
+			System.out.println("CLASS ***** "+ javaClassList.get(i));
+			System.out.println("Lines Of Code: "+projectMetrics[i].getLinesOfCode());
+			System.out.println("Commit Id: "+projectMetrics[i].getCommitId());
+			System.out.println("Cyclomatic Complexity: "+projectMetrics[i].getComplexityPerMethod());
+			System.out.println("Coupling : "+projectMetrics[i].getDependencyPerMethod());
 
 		}
+		
+		
 
 	}
 
