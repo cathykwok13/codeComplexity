@@ -23,9 +23,8 @@ public class DirectoryParser {
 		projDirContents = new File(path).listFiles();
 	}
 
-	public List<String> getFolders() throws FileNotFoundException {
-		File bugReport = new File(
-				"/Users/cathykwok/Documents/School/CPSC410/bugReport.txt");
+	public List<String> getFolders(String path) throws FileNotFoundException {
+		File bugReport = new File(path + "/bugReport.txt");
 		String[] commitId = BugReportParser.readCommitId(bugReport);
 		
 		String[] folderNamesInArray = new String[commitId.length];

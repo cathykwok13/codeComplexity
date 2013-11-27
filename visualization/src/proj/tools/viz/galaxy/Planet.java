@@ -12,8 +12,6 @@ import org.newdawn.slick.opengl.Texture;
 import proj.tools.viz.resources.TextureManager;
 
 public class Planet implements CelestialBody {
-
-	private static final String TEXTURE_NAME = "earth.jpg";
 	
 	private Star parent;
 	private float radius, distanceFromParent, rotation, condition;
@@ -53,12 +51,39 @@ public class Planet implements CelestialBody {
 		return radius;
 	}
 	
+	public void setCondition(float condition){
+		this.condition = condition;
+	}
+	
+	private String getTextureName(){
+		if(radius < 0.15f){
+			return "pluto.jpg";
+		} else if(radius < 0.25f){
+			return "mercury.jpg";
+		} else if(radius < 0.3f){
+			return "venus.jpg";
+		} else if(radius < 0.4f){
+			return "mars.jpg";
+		} else if(radius < 0.6f){
+			return "earth.jpg";
+		} else if(radius < 0.75f){
+			return "uranus.jpg";
+		} else if(radius < 0.95f){
+			return "neptune.jpg";
+		} else if(radius < 1.1f){
+			return "saturn.jpg";
+		} else{
+			return "jupiter.jpg";
+		}
+	}
+	
+	
 	@Override
 	public Texture getTexture() {
 		try {
-			return TextureManager.getTexture(TEXTURE_NAME);
+			return TextureManager.getTexture(getTextureName());
 		} catch (IOException e) {
-			throw new RuntimeException("Could not find texture: " + TEXTURE_NAME);
+			throw new RuntimeException("Could not find texture: " + getTextureName());
 		}
 	}
 
@@ -81,6 +106,11 @@ public class Planet implements CelestialBody {
 	@Override
 	public float getCondition() {
 		return condition;
+	}
+
+	@Override
+	public float getBrightness() {
+		return 0.3f;
 	}
 	
 }

@@ -8,13 +8,13 @@ import static org.lwjgl.opengl.GL11.glDepthMask;
 import java.io.IOException;
 import java.util.List;
 
-import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
 import org.lwjgl.util.vector.Vector3f;
 
 import proj.tools.data.ClassMetrics;
+import proj.tools.viz.galaxy.Background;
 import proj.tools.viz.galaxy.Galaxy;
 import proj.tools.viz.gl.display.GlDisplay;
 import proj.tools.viz.gl.pipe.FragmentShaderReference;
@@ -27,35 +27,33 @@ import proj.tools.viz.resources.ResourceLoader;
 public class GalaxyVisualization {
 
 	private Galaxy galaxy;
+	private Background background;
 	
 	private Window backgroundWindow, galaxyWindow, overlayWindow;
 	private Camera camera;
-	private ProgramReference glProgram;
 
-	/**
-	 * 
-	 * @param args
-	 * @throws LWJGLException
-	 */
-	public static void main(String[] args) throws LWJGLException {
-		new GalaxyVisualization(null).start();
-
-	}
+	private ProgramReference galaxyProgram;
+	private ProgramReference backgroundProgram;
 
 	/**
 	 * 
 	 * @param classMetrics
 	 */
-	public GalaxyVisualization(List<ClassMetrics> classMetrics) {
+	public GalaxyVisualization(List<List<ClassMetrics>> classMetrics) {
 		galaxy = new Galaxy(classMetrics);
+		background = new Background();
 	}
 
 	/**
-	 * @throws LWJGLException
 	 * 
 	 */
-	public void start() throws LWJGLException {
-		GlDisplay.create(null);
+	public void start() {
+		try{
+			GlDisplay.create(null);
+		}catch(Exception ex){
+			throw new RuntimeException(ex);
+		}
+		
 		initializeGlState();
 
 		//initialize the viewing structures
@@ -68,7 +66,7 @@ public class GalaxyVisualization {
 		overlayWindow = new Window(Display.getWidth(), Display.getHeight(), 0.1f, 1f);
 		overlayWindow.setOrthographicProjection(0, 0);
 
-		camera = new Camera(15f, new Vector3f());
+		camera = new Camera(25f, new Vector3f());
 		camera.setVertical(1f);
 		camera.updateView();
 		
@@ -82,11 +80,20 @@ public class GalaxyVisualization {
 	 */
 	private void initializeGlState() {
 		try {
-			VertexShaderReference vertexShader = new VertexShaderReference(ResourceLoader.getResourceAsFile("shader.vert"));
-			FragmentShaderReference fragmentShader = new FragmentShaderReference(ResourceLoader.getResourceAsFile("shader.frag"));
-			glProgram = new ProgramReference(vertexShader, fragmentShader);
-			glProgram.compile();
-			glProgram.bind();
+			VertexShaderReference vertexShader = new VertexShaderReference(ResourceLoader.getResourceAsFile("gshader.vert"));
+			FragmentShaderReference fragmentShader = new FragmentShaderReference(ResourceLoader.getResourceAsFile("gshader.frag"));
+			galaxyProgram = new ProgramReference(vertexShader, fragmentShader);
+			galaxyProgram.compile();
+			galaxyProgram.bind();
+			
+			vertexShader = new VertexShaderReference(ResourceLoader.getResourceAsFile("bshader.vert"));
+			fragmentShader = new FragmentShaderReference(ResourceLoader.getResourceAsFile("bshader.frag"));
+			backgroundProgram = new ProgramReference(vertexShader, fragmentShader);
+			backgroundProgram.compile();
+			backgroundProgram.bind();
+			
+			
+			
 		} catch (IOException e) {
 			throw new RuntimeException(e + "\nUnable to load GL state");
 		}
@@ -102,7 +109,7 @@ public class GalaxyVisualization {
 		while (!Display.isCloseRequested()) {
 			Display.sync(60);
 			drawBackground();
-			
+
 			updateGalaxy();
 			drawGalaxy();
 
@@ -136,7 +143,8 @@ public class GalaxyVisualization {
 	 * 
 	 */
 	public void drawBackground() {
-		//TODO
+		backgroundWindow.update();
+		background.draw(galaxyWindow, backgroundProgram);
 	}
 
 	/**
@@ -152,10 +160,11 @@ public class GalaxyVisualization {
 	 * 
 	 */	
 	public void drawGalaxy() {
-		glProgram.setUniformMatrix4f("proj", galaxyWindow.getProjectionMatrix());
-		glProgram.setUniformMatrix4f("view", galaxyWindow.getViewMatrix());
+		galaxyProgram.bind();
+		galaxyProgram.setUniformMatrix4f("proj", galaxyWindow.getProjectionMatrix());
+		galaxyProgram.setUniformMatrix4f("view", galaxyWindow.getViewMatrix());
 		
-		galaxy.draw(galaxyWindow, glProgram);
+		galaxy.draw(galaxyWindow, galaxyProgram);
 	}
 	
 	public void drawOverlay() {

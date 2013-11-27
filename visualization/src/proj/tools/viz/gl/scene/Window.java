@@ -103,6 +103,22 @@ public class Window {
 	 * 
 	 * @return
 	 */
+	public float getWidth(){
+		return width;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public float getHeight(){
+		return height;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public float getAspectRatio(){
 		return ratio;
 	}

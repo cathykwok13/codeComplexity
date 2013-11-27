@@ -8,6 +8,7 @@ public interface CelestialBody {
 	
 	public float getRadius();
 	public float getCondition();
+	public float getBrightness();
 
 	public Texture getTexture();
 	public Matrix4f getTransform();

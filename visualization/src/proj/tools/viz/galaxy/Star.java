@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.opengl.Texture;
 
 import proj.tools.viz.resources.TextureManager;
@@ -58,6 +57,11 @@ public class Star implements CelestialBody {
 
 	@Override
 	public float getCondition() {
+		return 1;
+	}
+
+	@Override
+	public float getBrightness() {
 		return 1;
 	}
 }

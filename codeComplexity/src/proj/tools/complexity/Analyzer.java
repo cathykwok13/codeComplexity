@@ -15,7 +15,7 @@ public class Analyzer {
 
 	public static void main(String[] args) {
 
-		String path = "/Users/cathykwok/Documents/School/CPSC410/";
+		String path = "G:/CPSC410/CPSC410";
 		analyze(path);
 	}
 
@@ -24,12 +24,12 @@ public class Analyzer {
 	 * 
 	 * @param path
 	 */
-	private static void analyze(String path) {
+	public static List<List<ClassMetrics>> analyze(String path) {
 
 		DirectoryParser projectParser = new DirectoryParser(path);
 		List<String> commitIdPath = null;
 		try {
-			commitIdPath = projectParser.getFolders();
+			commitIdPath = projectParser.getFolders(path);
 		} catch (FileNotFoundException e) {
 			System.out.println("FILE PATH ERROR");
 			e.printStackTrace();
@@ -101,8 +101,7 @@ public class Analyzer {
 			 complexityForProject.add(Arrays.asList(projectMetrics));
 		}
 		
-		System.out.println("Done");
-
+		return complexityForProject;
 	}
 
 }

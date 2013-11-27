@@ -10,7 +10,7 @@ public class ClassMetrics {
 	Map<String, Integer> complexityPerMethod;
 	Map<String, Integer> dependencyPerMethod;
 	
-	public ClassMetrics( int linesOfCode, String commitId,Map<String, Integer> complexityPerMethod,Map<String, Integer> dependencyPerMethod){
+	public ClassMetrics( int linesOfCode, String commitId, Map<String, Integer> complexityPerMethod, Map<String, Integer> dependencyPerMethod){
 		this.linesOfCode = linesOfCode;
 		this.commitId = commitId;
 		this.complexityPerMethod = complexityPerMethod;

@@ -66,5 +66,10 @@ public class Moon implements CelestialBody {
 	public float getCondition() {
 		return condition;
 	}
+
+	@Override
+	public float getBrightness() {
+		return 0.4f;
+	}
 	
 }
