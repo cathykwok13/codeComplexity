@@ -2,6 +2,12 @@ package proj.tools.data;
 
 import java.util.Map;
 
+/**
+ * 
+ * Object used to store complexity information for each class
+ * @author cathykwok
+ *
+ */
 public class ClassMetrics {
 	
 	int linesOfCode;

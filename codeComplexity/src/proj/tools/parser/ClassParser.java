@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Class that analyzes the contents of a class with functions to
+ * get lines of code and method list of a class
+ * @author cathykwok
+ *
+ */
 public class ClassParser {
 
 	File fileToAnalyze;

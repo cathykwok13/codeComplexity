@@ -9,14 +9,7 @@ public class BugReportParser {
 	String[] commitId;
 	String[] commitDate;
 
-	public BugReportParser(){
-		//File bugReport = new File("/Users/selenalee/Documents/Cpsc 410/Project/Bug Report.txt");
-
-		//for(int n=0; n<commitId.length; n++) {
-			//System.out.println(commitId[n]);
-			//System.out.println(commitDate[n]);
-		//}
-	}
+	public BugReportParser(){}
 
 	// Read commitId from the bug report
 	public static String[] readCommitId(File file) throws FileNotFoundException {

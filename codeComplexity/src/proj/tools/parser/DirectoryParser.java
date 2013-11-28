@@ -8,7 +8,8 @@ import java.util.List;
 
 /**
  * DirectoryParser takes a directory path and parses through the directories to
- * get all the paths to the java files
+ * get one, all the java projects in the directory with an assoiciated commit id
+ * from the bug parser, and two, all the paths to the java files
  * 
  * @author cathy
  * 
@@ -33,10 +34,8 @@ public class DirectoryParser {
 			int index = getCommitIndex(commitId, projDirContents[i].getName());
 			if (projDirContents[i].isDirectory() && index >= 0 ) {
 				folderNamesInArray[index] = projDirContents[i].getPath();
-				//System.out.println(projDirContents[i].getName());
 			}
 		}
-		//folderNames = 
 		return Arrays.asList(folderNamesInArray);
 	}
 
