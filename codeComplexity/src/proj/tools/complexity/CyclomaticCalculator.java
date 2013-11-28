@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * 
  * The complexity M is then defined as M = pi - s + 2
  * 
- * Where pi is the number of decision points (case,if,for) s is the number of
+ * Where pi is the number of decision points (case,if,for,while) s is the number of
  * exit points
  * 
  * @author cathy
@@ -47,7 +47,6 @@ public class CyclomaticCalculator {
 	}
 
 	private static int getExitPoint(String s) {
-		// calculate how many exit nodes
 		Pattern p = Pattern.compile("return");
 		Matcher matcher = p.matcher(s);
 

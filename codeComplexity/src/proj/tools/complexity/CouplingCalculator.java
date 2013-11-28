@@ -2,6 +2,11 @@ package proj.tools.complexity;
 
 import java.util.List;
 
+/**
+ * 
+ * Class used to calculate coupling in a method
+ *
+ */
 public class CouplingCalculator {
 	
 	static int getCouplingCalc(String method, List<String> classes) {
